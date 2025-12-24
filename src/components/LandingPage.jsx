@@ -47,7 +47,7 @@ const LandingPage = ({ onLogin }) => {
     };
 
     return (
-        <div className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center text-center p-6 bg-charcoal">
+        <div className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col items-center justify-center text-center p-6 bg-charcoal">
 
             {/* Background Media */}
             <div className="absolute inset-0 z-0">
@@ -68,7 +68,7 @@ const LandingPage = ({ onLogin }) => {
             </div>
 
             {/* Overlay Content */}
-            <div className="z-10 w-full max-w-md flex flex-col items-center justify-center min-h-[60vh]">
+            <div className="z-10 w-full max-w-md flex flex-col items-center justify-center min-h-[60vh] py-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -185,16 +185,16 @@ const LandingPage = ({ onLogin }) => {
                             </motion.div>
                         )}
                     </div>
+
+                    <motion.div
+                        className="flex justify-center mt-8 text-white/50"
+                        animate={{ y: [0, 5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    >
+                        <Heart size={24} fill="currentColor" className="text-gold opacity-80 drop-shadow-lg" />
+                    </motion.div>
                 </motion.div>
             </div>
-
-            <motion.div
-                className="absolute bottom-8 text-white/50"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-            >
-                <Heart size={24} fill="currentColor" className="text-gold opacity-80 drop-shadow-lg" />
-            </motion.div>
         </div>
     );
 };
