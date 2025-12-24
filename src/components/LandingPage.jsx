@@ -68,7 +68,7 @@ const LandingPage = ({ onLogin }) => {
             </div>
 
             {/* Overlay Content */}
-            <div className="z-10 w-full max-w-md flex flex-col items-center justify-center min-h-[60vh]">
+            <div className="z-10 w-full max-w-md flex flex-col items-center justify-center min-h-[60vh] pb-20">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
