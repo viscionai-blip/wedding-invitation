@@ -112,7 +112,7 @@ const InvitePage = ({ guest, onLogout }) => {
                             Prepared by Arzish Ahmed (Groom's Brother)
                         </p>
                         <a
-                            href="https://www.instagram.com/"
+                            href="https://www.instagram.com/arzish.ahmed/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-white/30 hover:text-gold transition-colors p-2"
