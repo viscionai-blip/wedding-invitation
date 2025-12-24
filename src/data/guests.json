@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Arzish Ahmed",
+        "role": "groom_family"
+    },
+    {
+        "name": "Rahul Das",
+        "role": "cocktail_only"
+    },
+    {
+        "name": "Priya Nath",
+        "role": "bride_side"
+    },
+    {
+        "name": "Super Guest",
+        "role": "all_access"
+    }
+]
