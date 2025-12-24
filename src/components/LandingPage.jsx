@@ -159,28 +159,34 @@ const LandingPage = ({ onLogin }) => {
                     </button>
 
                     {/* Secret Code Section - Hidden by Default */}
-                    <div className="flex flex-col items-center mt-2">
+                    <div className="flex flex-col items-center mt-3">
                         {!showCodeInput ? (
-                            <button
-                                onClick={() => setShowCodeInput(true)}
-                                className="px-2.5 py-0.5 rounded-full border border-white/10 text-white/40 text-[8px] uppercase tracking-wider hover:bg-white/5 hover:text-white/80 hover:border-gold/30 transition-all duration-300 backdrop-blur-sm"
-                            >
-                                Enter Group PIN
-                            </button>
+                            <div className="relative group">
+                                {/* Glowing Animated Border */}
+                                <div className="absolute -inset-0.5 bg-gradient-to-r from-gold via-flamenco to-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm bg-size-200 animate-gradient-xy"></div>
+                                <button
+                                    onClick={() => setShowCodeInput(true)}
+                                    className="relative px-4 py-1.5 rounded-full bg-black/40 border border-white/10 text-white/60 text-[10px] uppercase tracking-wider hover:text-white transition-all duration-300 backdrop-blur-sm"
+                                >
+                                    Enter Group PIN
+                                </button>
+                            </div>
                         ) : (
                             <motion.div
                                 initial={{ opacity: 0, height: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, height: 'auto', scale: 1 }}
                                 transition={{ duration: 0.3 }}
-                                className="w-full max-w-[120px]"
+                                className="w-full max-w-[160px] relative group"
                             >
+                                {/* Glowing Animated Border for Input */}
+                                <div className="absolute -inset-0.5 bg-gradient-to-r from-gold via-flamenco to-gold rounded-lg opacity-50 transition-opacity duration-500 blur-sm bg-size-200 animate-gradient-xy"></div>
                                 <input
                                     type="text"
                                     placeholder="Group PIN (Optional)"
                                     value={secretCode}
                                     onChange={(e) => setSecretCode(e.target.value)}
                                     autoFocus
-                                    className="w-full px-2 py-0.5 rounded text-center bg-black/20 border border-white/5 text-gold/80 text-[8px] focus:outline-none focus:border-gold/30 focus:bg-black/40 placeholder:text-white/20 transition-all font-sans tracking-wide"
+                                    className="relative w-full px-4 py-2 rounded-lg text-center bg-black/80 border border-white/10 text-gold text-xs focus:outline-none placeholder:text-white/20 transition-all font-sans tracking-wide"
                                 />
                             </motion.div>
                         )}
