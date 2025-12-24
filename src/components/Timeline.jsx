@@ -125,8 +125,11 @@ const Timeline = ({ role, hasCocktailAccess }) => {
             return true;
         }
 
-        // Master Key: VIPs (Cocktail Access) see The Nikah and Cocktail
-        if (hasCocktailAccess && (event.title === "Cocktail" || event.title === "The Nikah")) return true;
+        // Master Key: VIPs (Cocktail Access) see The Nikah (unless Groom side) and Cocktail
+        if (hasCocktailAccess) {
+            if (event.title === "Cocktail") return true;
+            if (event.title === "The Nikah" && role !== 'groom_side') return true;
+        }
 
         return false;
     });
