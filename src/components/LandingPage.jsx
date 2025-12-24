@@ -29,9 +29,9 @@ const LandingPage = ({ onLogin }) => {
             assignedRole = 'bride_side';
         }
 
-        // Check Secret Code OR Magic Link
-        const urlParams = new URLSearchParams(window.location.search);
-        const isMagicLink = urlParams.get('vip') === 'true';
+        // Check Secret Code OR Magic Link (/squad26)
+        const pathName = window.location.pathname.toLowerCase();
+        const isMagicLink = pathName.includes('/squad26');
 
         const hasCocktailAccess = isMagicLink || secretCode.trim().toUpperCase() === 'SQUAD26';
 
