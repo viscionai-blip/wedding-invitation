@@ -125,8 +125,8 @@ const Timeline = ({ role, hasCocktailAccess }) => {
             return true;
         }
 
-        // Secret Access check for Cocktail - Only adds Cocktail, doesn't reveal other side's events
-        if (hasCocktailAccess && event.title === "Cocktail") return true;
+        // Master Key: VIPs (Cocktail Access) see The Nikah and Cocktail
+        if (hasCocktailAccess && (event.title === "Cocktail" || event.title === "The Nikah")) return true;
 
         return false;
     });

@@ -8,8 +8,10 @@ const LandingPage = ({ onLogin }) => {
     const [error, setError] = useState('');
 
     // Secret Code State
-    const [showCodeInput, setShowCodeInput] = useState(false);
+    // Secret Code - Checking URL for Magic Link
+    // If URL contains ?vip=true, they get access automatically
     const [secretCode, setSecretCode] = useState('');
+    const [showCodeInput, setShowCodeInput] = useState(false);
 
     const handleEnter = () => {
         if (!name.trim()) {
@@ -27,8 +29,11 @@ const LandingPage = ({ onLogin }) => {
             assignedRole = 'bride_side';
         }
 
-        // Check Secret Code
-        const hasCocktailAccess = secretCode.trim().toUpperCase() === 'SQUAD26';
+        // Check Secret Code OR Magic Link
+        const urlParams = new URLSearchParams(window.location.search);
+        const isMagicLink = urlParams.get('vip') === 'true';
+
+        const hasCocktailAccess = isMagicLink || secretCode.trim().toUpperCase() === 'SQUAD26';
 
         onLogin({
             name: name.trim(),
@@ -158,39 +163,8 @@ const LandingPage = ({ onLogin }) => {
                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </button>
 
-                    {/* Secret Code Section - Hidden by Default */}
-                    <div className="flex flex-col items-center mt-3">
-                        {!showCodeInput ? (
-                            <div className="relative group">
-                                {/* Glowing Animated Border */}
-                                <div className="absolute -inset-0.5 bg-gradient-to-r from-gold via-flamenco to-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm bg-size-200 animate-gradient-xy"></div>
-                                <button
-                                    onClick={() => setShowCodeInput(true)}
-                                    className="relative px-4 py-1.5 rounded-full bg-black/40 border border-white/10 text-white/60 text-[10px] uppercase tracking-wider hover:text-white transition-all duration-300 backdrop-blur-sm"
-                                >
-                                    Enter Group PIN
-                                </button>
-                            </div>
-                        ) : (
-                            <motion.div
-                                initial={{ opacity: 0, height: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, height: 'auto', scale: 1 }}
-                                transition={{ duration: 0.3 }}
-                                className="w-full max-w-[160px] relative group"
-                            >
-                                {/* Glowing Animated Border for Input */}
-                                <div className="absolute -inset-0.5 bg-gradient-to-r from-gold via-flamenco to-gold rounded-lg opacity-50 transition-opacity duration-500 blur-sm bg-size-200 animate-gradient-xy"></div>
-                                <input
-                                    type="text"
-                                    placeholder="Group PIN (Optional)"
-                                    value={secretCode}
-                                    onChange={(e) => setSecretCode(e.target.value)}
-                                    autoFocus
-                                    className="relative w-full px-4 py-2 rounded-lg text-center bg-black/80 border border-white/10 text-gold text-xs focus:outline-none placeholder:text-white/20 transition-all font-sans tracking-wide"
-                                />
-                            </motion.div>
-                        )}
-                    </div>
+                    {/* Secret Code Section - REMOVED for cleaner UI */}
+                    {/* VIPs will use the Magic Link: ?vip=true */}
 
                     <motion.div
                         className="flex justify-center mt-8 text-white/50"
