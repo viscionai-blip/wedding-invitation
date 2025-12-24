@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Gift } from 'lucide-react';
+import { Gift, Instagram } from 'lucide-react';
 import Countdown from './Countdown';
 import Timeline from './Timeline';
 import Gallery from './Gallery';
@@ -105,6 +105,21 @@ const InvitePage = ({ guest, onLogout }) => {
                     >
                         Log Out
                     </button>
+
+                    {/* Credits Section */}
+                    <div className="pt-8 border-t border-white/5 flex flex-col items-center gap-3">
+                        <p className="font-sans text-[10px] text-white/30 tracking-wider">
+                            Prepared by Arzish Ahmed (Groom's Brother)
+                        </p>
+                        <a
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white/30 hover:text-gold transition-colors p-2"
+                        >
+                            <Instagram size={16} />
+                        </a>
+                    </div>
                 </footer>
             </section>
         </div>
