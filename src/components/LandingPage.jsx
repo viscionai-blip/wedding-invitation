@@ -40,7 +40,14 @@ const LandingPage = ({ onLogin }) => {
 
         // Logic: Map selection to internal roles
         let assignedRole = 'groom_side';
-        if (role === 'bride' || role.startsWith('bride')) {
+
+        // Priority Check: Special Path Override
+        // If we are on the special link, FORCE the special role (unless they somehow picked bride)
+        const pathCheck = window.location.pathname.toLowerCase();
+        if (pathCheck.includes('jeeyan-squad1')) {
+            assignedRole = 'groom_special';
+        }
+        else if (role === 'bride' || role.startsWith('bride')) {
             assignedRole = 'bride_side';
         } else if (role === 'groom_special') {
             assignedRole = 'groom_special';
@@ -148,7 +155,9 @@ const LandingPage = ({ onLogin }) => {
                                     if (path.includes('chandni')) return side === 'bride';
                                     return true; // Show both if no specific path
                                 }).map((side) => {
-                                    const isSelected = role === side;
+                                    // Visual Selection Logic:
+                                    // If role is 'groom_special', treat it as 'groom' for visual selection
+                                    const isSelected = role === side || (role === 'groom_special' && side === 'groom');
                                     return (
                                         <div key={side} className="relative group flex-1">
                                             {/* Glowing Animated Border Container */}
