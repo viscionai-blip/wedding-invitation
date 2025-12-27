@@ -6,7 +6,7 @@ const events = [
         id: 1,
         title: "Cocktail",
         date: "Jan 10, 2026",
-        time: "5:00 PM Onwards",
+        time: "4:00 PM Onwards",
         image: "/cocktail.jpg",
         desc: (
             <span>
@@ -107,6 +107,12 @@ const events = [
 
 const Timeline = ({ role, hasCocktailAccess }) => {
     const filteredEvents = events.filter(event => {
+        // Special Groom Link Logic (jeeyan-squad1)
+        if (role === 'groom_special') {
+            const allowed = ["Cocktail", "Biya - The Agni Saaxhi", "The Nikah", "Jeeyan's Reception (The Groom)"];
+            return allowed.includes(event.title);
+        }
+
         // Events that require "Inner Circle" access for Bride's side
         const brideInnerCircleEvents = ["Mehendi", "Juroon - The Aagomon", "Biya - The Agni Saaxhi"];
         // Events that require "Inner Circle" access for Groom's side
@@ -149,6 +155,12 @@ const Timeline = ({ role, hasCocktailAccess }) => {
             {filteredEvents.map((event, index) => {
                 const isImageEvent = !!event.image;
 
+                // Special Text Override for Groom Special Role (Biya event)
+                let displayTime = event.time;
+                if (role === 'groom_special' && event.title === "Biya - The Agni Saaxhi") {
+                    displayTime = "Baraat Assemble: Blush, Hengrabari, 9:30 AM";
+                }
+
                 return (
                     <motion.div
                         key={event.id}
@@ -182,7 +194,7 @@ const Timeline = ({ role, hasCocktailAccess }) => {
                                 </span>
                                 <h3 className={`text-2xl font-script drop-shadow-md ${isImageEvent ? 'text-white' : 'text-cream'}`}>{event.title}</h3>
                                 <div className={`text-sm font-sans font-medium tracking-wide ${isImageEvent ? 'text-white/90' : 'text-cream/70'}`}>
-                                    {event.time}
+                                    {displayTime}
                                 </div>
                                 <p className={`text-sm font-sans leading-relaxed ${isImageEvent ? 'text-white/80' : 'text-cream/60'}`}>
                                     {event.desc}

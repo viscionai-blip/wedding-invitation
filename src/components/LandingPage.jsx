@@ -16,7 +16,10 @@ const LandingPage = ({ onLogin }) => {
 
     React.useEffect(() => {
         const path = window.location.pathname.toLowerCase();
-        if (path.includes('jeeyan')) {
+        if (path.includes('jeeyan-squad1')) {
+            setRole('groom_special');
+            setAutoSelect(true);
+        } else if (path.includes('jeeyan')) {
             setRole('groom');
             setAutoSelect(true);
         } else if (path.includes('chandni')) {
@@ -39,6 +42,8 @@ const LandingPage = ({ onLogin }) => {
         let assignedRole = 'groom_side';
         if (role === 'bride' || role.startsWith('bride')) {
             assignedRole = 'bride_side';
+        } else if (role === 'groom_special') {
+            assignedRole = 'groom_special';
         }
 
         // Check Secret Code OR Magic Link (/squad)
