@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LandingPage from './components/LandingPage';
 import InvitePage from './components/InvitePage';
+import CocktailCard from './components/CocktailCard';
 
 function App() {
     // Initialize state from localStorage if available
@@ -18,6 +19,11 @@ function App() {
         setGuest(null);
         localStorage.removeItem('wedding_guest');
     };
+
+    // Simple Route Check for Print Card
+    if (window.location.pathname.includes('/cocktail-card')) {
+        return <CocktailCard />;
+    }
 
     return (
         <div className="min-h-screen font-sans text-charcoal antialiased selection:bg-flamenco/20 bg-gradient-to-br from-burgundy via-[#2d0202] to-black">

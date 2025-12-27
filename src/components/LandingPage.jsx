@@ -11,7 +11,19 @@ const LandingPage = ({ onLogin }) => {
     // Secret Code - Checking URL for Magic Link
     // If URL contains ?vip=true, they get access automatically
     const [secretCode, setSecretCode] = useState('');
-    const [showCodeInput, setShowCodeInput] = useState(false);
+    // State for auto-detected role
+    const [autoSelect, setAutoSelect] = useState(false);
+
+    React.useEffect(() => {
+        const path = window.location.pathname.toLowerCase();
+        if (path.includes('jeeyan')) {
+            setRole('groom');
+            setAutoSelect(true);
+        } else if (path.includes('chandni')) {
+            setRole('bride');
+            setAutoSelect(true);
+        }
+    }, []);
 
     const handleEnter = () => {
         if (!name.trim()) {
@@ -25,13 +37,14 @@ const LandingPage = ({ onLogin }) => {
 
         // Logic: Map selection to internal roles
         let assignedRole = 'groom_side';
-        if (role.startsWith('bride')) {
+        if (role === 'bride' || role.startsWith('bride')) {
             assignedRole = 'bride_side';
         }
 
         // Check Secret Code OR Magic Link (/squad)
         const pathName = window.location.pathname.toLowerCase();
-        const isMagicLink = pathName.includes('/squad');
+        // Magic link if path contains 'squad'
+        const isMagicLink = pathName.includes('squad');
 
         const hasCocktailAccess = isMagicLink || secretCode.trim().toUpperCase() === 'SQUAD26';
 
@@ -120,35 +133,37 @@ const LandingPage = ({ onLogin }) => {
                             />
                         </div>
 
-                        {/* Role Selection Grid */}
-                        <div className="w-full space-y-4">
-                            <p className="text-white/60 text-xs uppercase tracking-[0.2em] mb-4 font-sans font-medium">I am with...</p>
-                            <div className="flex gap-4">
-                                {['groom', 'bride'].map((side) => {
-                                    const isSelected = role === side;
-                                    return (
-                                        <div key={side} className="relative group flex-1">
-                                            {/* Glowing Animated Border Container */}
-                                            <div className={`absolute -inset-0.5 bg-gradient-to-r from-gold via-flamenco to-gold rounded-xl opacity-0 transition-opacity duration-500 blur-sm bg-size-200
-                                                ${isSelected ? 'opacity-100 animate-gradient-xy' : 'group-hover:opacity-75'}`}></div>
+                        {/* Role Selection Grid - Only show if NOT auto-selected */}
+                        {!autoSelect && (
+                            <div className="w-full space-y-4">
+                                <p className="text-white/60 text-xs uppercase tracking-[0.2em] mb-4 font-sans font-medium">I am with...</p>
+                                <div className="flex gap-4">
+                                    {['groom', 'bride'].map((side) => {
+                                        const isSelected = role === side;
+                                        return (
+                                            <div key={side} className="relative group flex-1">
+                                                {/* Glowing Animated Border Container */}
+                                                <div className={`absolute -inset-0.5 bg-gradient-to-r from-gold via-flamenco to-gold rounded-xl opacity-0 transition-opacity duration-500 blur-sm bg-size-200
+                                                    ${isSelected ? 'opacity-100 animate-gradient-xy' : 'group-hover:opacity-75'}`}></div>
 
-                                            <button
-                                                onClick={() => { setRole(side); setError(''); }}
-                                                className={`relative w-full py-4 px-2 rounded-xl border transition-all duration-300 font-sans text-xs md:text-sm font-semibold tracking-wide overflow-hidden
-                                                ${isSelected
-                                                        ? 'bg-gradient-to-br from-charcoal to-black text-gold border-gold/50 shadow-[0_0_15px_rgba(212,175,55,0.3)]'
-                                                        : 'bg-black/40 text-cream/70 border-white/10 hover:bg-black/60 hover:text-white hover:border-white/30'
-                                                    }`}
-                                            >
-                                                <span className="relative z-10 flex items-center justify-center gap-2">
-                                                    {side === 'groom' ? 'Team Groom' : 'Team Bride'}
-                                                </span>
-                                            </button>
-                                        </div>
-                                    );
-                                })}
+                                                <button
+                                                    onClick={() => { setRole(side); setError(''); }}
+                                                    className={`relative w-full py-4 px-2 rounded-xl border transition-all duration-300 font-sans text-xs md:text-sm font-semibold tracking-wide overflow-hidden
+                                                    ${isSelected
+                                                            ? 'bg-gradient-to-br from-charcoal to-black text-gold border-gold/50 shadow-[0_0_15px_rgba(212,175,55,0.3)]'
+                                                            : 'bg-black/40 text-cream/70 border-white/10 hover:bg-black/60 hover:text-white hover:border-white/30'
+                                                        }`}
+                                                >
+                                                    <span className="relative z-10 flex items-center justify-center gap-2">
+                                                        {side === 'groom' ? 'Team Groom' : 'Team Bride'}
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
 
                     {error && (
