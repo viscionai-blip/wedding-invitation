@@ -33,7 +33,7 @@ const events = [
     {
         id: 2,
         title: "Mehendi",
-        date: "Jan 20, 2026",
+        date: "Jan 17, 2026",
         time: "2:00 PM Onwards",
         image: "/mehendi.jpg",
         desc: (
